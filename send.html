@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>送信ページ</title>
+</head>
+
+<body style="text-align:center;">
+
+<h2>送信ページ</h2>
+
+<input id="msg" placeholder="文字入力">
+<br><br>
+
+<button onclick="send()">送信</button>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+<script>
+// 🔥 ここは自分のFirebaseのやつに置き換える
+const firebaseConfig = {
+  apiKey: "ここ",
+  authDomain: "ここ",
+  databaseURL: "https://site-84234-default-rtdb.firebaseio.com/",
+  projectId: "site-84234"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+// 🔥 送信処理
+function send(){
+  let msg = document.getElementById("msg").value;
+
+  if(msg === ""){
+    alert("文字を入力してね");
+    return;
+  }
+
+  db.ref("test").push({
+    text: msg
+  });
+
+  alert("送信した");
+  document.getElementById("msg").value = "";
+}
+</script>
+
+</body>
+</html>
